@@ -1,10 +1,3 @@
-/**
- * 
- * 
- * 
- * andrew Klonitsko
- * Brian Lloyd
- */
 package ui;
 
 import java.beans.PropertyChangeEvent;
@@ -28,7 +21,6 @@ public class MainGUI extends JFrame implements PropertyChangeListener {
 		MainGUI frame = new MainGUI();
 		UserSelectorGUI userSelector = new UserSelectorGUI();
 
-		System.out.println("hello brain");
 		// Display User selector GUI and listen to user selection
 		userSelector.addPropertyChangeListener(frame);
 		userSelector.setVisible(true);
@@ -49,14 +41,11 @@ public class MainGUI extends JFrame implements PropertyChangeListener {
 	}
 
 	/**
-	 * Create GUI components. This includes the UserSelectorGUI
+	 * Create GUI components. 
 	 */
 	private void createComponents() {
 		// Create the main tabbed pane
 		myTabbedPane = new JTabbedPane();
-
-		// Create the user selector GUI
-
 	}
 
 	private void createStaffComponents() {
@@ -86,6 +75,9 @@ public class MainGUI extends JFrame implements PropertyChangeListener {
 		return null;
 	}
 
+	/**
+	 * Listens to property changes from the UserSelectGUI.
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent e) {
 		// TODO Auto-generated method stub
@@ -93,6 +85,7 @@ public class MainGUI extends JFrame implements PropertyChangeListener {
 		// Debug only
 		System.out.println(e.getPropertyName() + " Old Value: " + e.getOldValue() + " New Value: " + e.getNewValue());
 
+		//Handle selected user from User selector GUI
 		if (e.getPropertyName().equals("user")) {
 			String user = (String) e.getNewValue();
 			if (user.equals("Staff")) {

@@ -65,8 +65,8 @@ public class EmployerDB {
 	 *         the sql exception.
 	 */
 	public String addEmployer(Employer employer) {
-		String sql = "INSERT INTO Employer(studentID, startDate, position) "
-				+ "VALUES (?, ?, ?);";
+		String sql = "INSERT INTO Employer(studentID,`name`, startDate, position) "
+				+ "VALUES (?, ?, ?, ?);";
 
 		if (mConnection == null) {
 			try {
@@ -80,8 +80,9 @@ public class EmployerDB {
 		try {
 			preparedStatement = mConnection.prepareStatement(sql);
 			preparedStatement.setInt(1, Integer.parseInt(employer.getStudentID()));
-			preparedStatement.setDate(2, employer.getStartDate());
-			preparedStatement.setString(3, employer.getPosition());
+			preparedStatement.setString(2, employer.getName());
+			preparedStatement.setDate(3, employer.getStartDate());
+			preparedStatement.setString(4, employer.getPosition());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -114,9 +115,10 @@ public class EmployerDB {
 				int id = rs.getInt("employerID");
 				int resultStudentID = rs.getInt("studentID");
 				String stringStudentID = Integer.toString(resultStudentID);
+				String name = rs.getString("name");
 				Date startDate = rs.getDate("startDate");
 				String position = rs.getString("position");
-				employer = new Employer (stringStudentID, startDate, position);
+				employer = new Employer (stringStudentID, name, startDate, position);
 				employer.setID(Integer.toString(id));
 				List<Skill> skills = getSkills(employer.getID());
 				employer.setSkills(skills);
@@ -157,9 +159,10 @@ public class EmployerDB {
 				int id = rs.getInt("employerID");
 				int resultStudentID = rs.getInt("studentID");
 				String stringStudentID = Integer.toString(resultStudentID);
+				String name = rs.getString("name");
 				Date startDate = rs.getDate("startDate");
 				String position = rs.getString("position");
-				employer = new Employer (stringStudentID, startDate, position);
+				employer = new Employer (stringStudentID, name, startDate, position);
 				employer.setID(Integer.toString(id));
 				List<Skill> skills = getSkills(employer.getID());
 				employer.setSkills(skills);
@@ -198,9 +201,10 @@ public class EmployerDB {
 				int id = rs.getInt("employerID");
 				int resultStudentID = rs.getInt("studentID");
 				String stringStudentID = Integer.toString(resultStudentID);
+				String name = rs.getString("name");
 				Date startDate = rs.getDate("startDate");
 				String position = rs.getString("position");
-				Employer employer = new Employer (stringStudentID, startDate, position);
+				Employer employer = new Employer (stringStudentID, name, startDate, position);
 				employer.setID(Integer.toString(id));
 				List<Skill> skills = getSkills(employer.getID());
 				employer.setSkills(skills);
@@ -402,7 +406,7 @@ public class EmployerDB {
 	 *         the sql exception.
 	 */
 	public String deleteSkill(Skill skill) {
-		String sql = "DELETE FROM Skill WHERE skillID = ?");
+		String sql = "DELETE FROM Skill WHERE skillID = ?";
 
 		if (mConnection == null) {
 			try {
